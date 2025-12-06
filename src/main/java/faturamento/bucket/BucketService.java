@@ -5,6 +5,7 @@ import faturamento.config.props.MinioProps;
 import io.minio.GetPresignedObjectUrlArgs;
 import io.minio.MinioClient;
 import io.minio.PutObjectArgs;
+import io.minio.http.Method;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -41,9 +42,10 @@ public class BucketService {
     public String getUrl(String fileName) {
        try{
            var object = GetPresignedObjectUrlArgs.builder()
+                   .method(Method.GET)
                      .bucket(props.getBucketName())
                         .object(fileName)
-                   .expiry(1, TimeUnit.HOURS)
+                   .expiry(7, TimeUnit.DAYS)
                    .build();
 
            return client.getPresignedObjectUrl(object);
