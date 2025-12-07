@@ -20,7 +20,7 @@ public class PedidoPagoSubscriber {
     private final GeradorNotaFiscalService geradorNotaFiscalService;
     private final PedidoMapper pedidoMapper;
 
-    @KafkaListener(groupId = "icompras-faturamento",
+    @KafkaListener(groupId = "${spring.kafka.consumer.group-id}",
             topics = "${icompras.config.kafka.topics.pedidos-pagos}")
     public void listen(String json) {
 
